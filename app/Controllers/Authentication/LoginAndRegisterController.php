@@ -56,4 +56,61 @@ class LoginAndRegisterController extends ResourceController
                 ->setStatusCode(ResponseInterface::HTTP_CREATED) // Set status code 201
                 ->setJSON($response);
     }
+
+
+    public function login(): ResponseInterface {
+
+
+        $rules = [
+            "email" => "required|valid_email",
+            "password" => "required"
+        ];
+
+        // Check if validation passes
+        if (!$this->validate($rules)) {
+            // Validation failed, return errors
+            $response = [
+                "status" => false,
+                "message" => $this->validator->getErrors(), // get all validation errors
+                "data" => []
+            ];
+
+            return $this->response->setJSON($response); // Return the JSON response
+        } else {
+
+            $userCredentials = [
+                "email" => $this->request->getVar("email"),
+                "password" => $this->request->getVar("password"),
+            ];
+
+            $loginAttempts = auth()->attempt($userCredentials);
+
+            if (!$loginAttempts->isOK()) {
+
+                $response = [
+                    "status" => false,
+                    "message" => "Login Fail", // get all validation errors
+                    "data" => []
+                ];
+            }else{
+                $userObject = new UserModel();
+
+                $userDate = $userObject->findById(auth()->id());
+
+                $token = $userDate->generateAccessToken("vishwak");
+
+                $auth_token = $token->raw_token;
+
+                $response = [
+                    "status" => false,
+                    "message" => "User Validation Success", // get all validation errors
+                    "data" => ["token"=>$auth_token]
+                ];
+            }
+        }
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_CREATED) // Set status code 201
+                ->setJSON($response);
+
+    }
 }

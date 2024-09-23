@@ -14,7 +14,7 @@ $routes->get('/', '\App\Controllers\Authentication\LoginAndRegisterController::i
 $routes->group('api', function($routes){
     $routes->post('register', '\App\Controllers\Authentication\LoginAndRegisterController::register');
     //POST
-    $routes->post('login', 'LoginAndRegisterController::login');
+    $routes->post('login', '\App\Controllers\Authentication\LoginAndRegisterController::login');
     //GET
     $routes->get('profile', 'LoginAndRegisterController::profile');
     //GET
