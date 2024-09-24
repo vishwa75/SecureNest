@@ -89,7 +89,7 @@ class LoginAndRegisterController extends ResourceController
 
                 $response = [
                     "status" => false,
-                    "message" => "Login Fail", // get all validation errors
+                    "message" => "Login Fail",
                     "data" => []
                 ];
             }else{
@@ -102,8 +102,8 @@ class LoginAndRegisterController extends ResourceController
                 $auth_token = $token->raw_token;
 
                 $response = [
-                    "status" => false,
-                    "message" => "User Validation Success", // get all validation errors
+                    "status" => true,
+                    "message" => "User Validation Success",
                     "data" => ["token"=>$auth_token]
                 ];
             }
