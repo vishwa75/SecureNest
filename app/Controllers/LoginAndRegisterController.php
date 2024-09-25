@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Authentication;
+namespace App\Controllers;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
