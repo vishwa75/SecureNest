@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ServerDetailModel extends Model
 {
-    protected $table = 'SERVER_DETAIL';
+    protected $table = 'SERVER_DETAILS';
     protected $primaryKey = 'ID';
     protected $allowedFields = [
         'CLIENT_ID',

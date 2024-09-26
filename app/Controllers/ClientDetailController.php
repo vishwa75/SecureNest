@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ClientDetailModel;
+use App\Models\ServerDetailModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -78,6 +79,41 @@ class ClientDetailController extends ResourceController
                             "status" => true,
                             "message" => "Client Detail Result",
                             "data" => [$searchclientDetail]
+                        ];
+                    }
+
+                    return $this->response
+                        ->setStatusCode(ResponseInterface::HTTP_CREATED)
+                        ->setJSON($response);
+            } 
+        } catch (\Exception $e) {
+            // Log or display the error message
+            $errorMessage = $e->getMessage() . "\n" . $e->getTraceAsString();
+            error_log($errorMessage);
+            return $errorMessage;
+        }
+
+    }
+
+
+    public function getServerdetail()
+    {
+        try {
+            $clientId = $this->request->getVar("clientid");
+            if ($clientId !== null) {
+                $serverDetailModel = new ServerDetailModel();
+                $serverDetail = $serverDetailModel->where('CLIENT_ID',$clientId)->findAll();
+                    if($serverDetail == null){
+                        $response = [
+                            "status" => false,
+                            "message" => "Server Detail Empty",
+                            "data" => [$serverDetail]
+                        ]; 
+                    }else{
+                        $response = [
+                            "status" => true,
+                            "message" => "Server Detail Result",
+                            "data" => [$serverDetail]
                         ];
                     }
 

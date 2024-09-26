@@ -24,5 +24,7 @@ $routes->group('api', function($routes){
 
         $routes->get('searchclientdetails', '\App\Controllers\ClientDetailController::ClientSearch');
 
+        $routes->get('getserverdetails', '\App\Controllers\ClientDetailController::getServerdetail');
+
     }
 );
