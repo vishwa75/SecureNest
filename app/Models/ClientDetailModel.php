@@ -9,7 +9,8 @@ class ClientDetailModel extends Model
     protected $table = 'CLIENT_DETAIL';
     protected $primaryKey = 'ID';
     protected $allowedFields = [
-        'NAME',
+        'CLIENT_ID',
+        'ESTABLISHMENT_NAME',
         'COUNTRY',
         'PREFERRED_CONTACT_METHOD',
         'CLIENT_SPOC',

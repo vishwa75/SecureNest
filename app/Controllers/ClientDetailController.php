@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ClientDetailModel;
 use App\Models\ServerDetailModel;
+use App\Models\TableDetailModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -17,19 +18,23 @@ class ClientDetailController extends ResourceController
 
     public function getClientDetails(){
         $clientDetailModel = new ClientDetailModel();
+        $tableDetailModel = new TableDetailModel();
         $clienDetails = $clientDetailModel->findAll();
+        $tableDetail = $tableDetailModel->where('TABLE_NAME', $clientDetailModel->getTableName())->findAll();
 
         if($clienDetails == null){
             $response = [
                 "status" => false,
                 "message" => "Get Client Detail Empty",
-                "data" => [$clienDetails]
+                "data" => [$clienDetails],
+                "header" => $tableDetail
             ]; 
         }else{
             $response = [
                 "status" => true,
                 "message" => "Get Client Detail",
-                "data" => [$clienDetails]
+                "data" => [$clienDetails],
+                "header" => $tableDetail
             ];
         }
 
