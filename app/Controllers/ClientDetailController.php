@@ -39,7 +39,7 @@ class ClientDetailController extends ResourceController
         }
 
             return $this->response
-                    ->setStatusCode(ResponseInterface::HTTP_CREATED)
+                    ->setStatusCode(ResponseInterface::HTTP_OK)
                     ->setJSON($response);
 
     }
@@ -88,7 +88,7 @@ class ClientDetailController extends ResourceController
                     }
 
                     return $this->response
-                        ->setStatusCode(ResponseInterface::HTTP_CREATED)
+                        ->setStatusCode(ResponseInterface::HTTP_OK)
                         ->setJSON($response);
             } 
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class ClientDetailController extends ResourceController
                     }
 
                     return $this->response
-                        ->setStatusCode(ResponseInterface::HTTP_CREATED)
+                        ->setStatusCode(ResponseInterface::HTTP_OK)
                         ->setJSON($response);
             } 
         } catch (\Exception $e) {
