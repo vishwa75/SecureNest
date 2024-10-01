@@ -26,5 +26,7 @@ $routes->group('api', function($routes){
 
         $routes->get('getserverdetails', '\App\Controllers\ClientDetailController::getServerdetail');
 
+        $routes->post('updateclientdetail', '\App\Controllers\ClientDetailController::updateClientDetail');
+
     }
 );

@@ -135,4 +135,65 @@ class ClientDetailController extends ResourceController
 
     }
 
+
+    public function updateClientDetail()
+{
+    try {
+        $clientId = $this->request->getVar("CLIENT_ID");
+        $PCM = $this->request->getVar('PREFERRED_CONTACT_METHOD');
+        $clientSpoc = $this->request->getVar('CLIENT_SPOC');
+        $clientSpocContactDetail = $this->request->getVar('CLIENT_SPOC_CONTACT_DETAIL');
+        $supportSpoc = $this->request->getVar('SUPPORT_SPOC');
+        $supportSpocContactDetail = $this->request->getVar('SUPPORT_SPOC_CONTACT_DETAIL');
+        $additionNotes = $this->request->getVar('ADDITIONAL_NOTES');
+
+        if ($clientId !== null) {
+            $clientDetailModel = new ClientDetailModel();
+            $editClientDetail = $clientDetailModel
+                ->set('PREFERRED_CONTACT_METHOD', $PCM)
+                ->set('CLIENT_SPOC', $clientSpoc)
+                ->set('CLIENT_SPOC_CONTACT_DETAIL', $clientSpocContactDetail)
+                ->set('SUPPORT_SPOC', $supportSpoc)
+                ->set('SUPPORT_SPOC_CONTACT_DETAIL', $supportSpocContactDetail)
+                ->set('ADDITIONAL_NOTES', $additionNotes)
+                ->where('CLIENT_ID', $clientId)
+                ->update();
+                
+            if ($editClientDetail) {
+                $response = [
+                    "status" => true,
+                    "message" => "Client detail updated successfully",
+                ];
+            } else {
+                $response = [
+                    "status" => false,
+                    "message" => "Failed to update client detail",
+                ];
+            }
+
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_OK)
+                ->setJSON($response);
+        } else {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                ->setJSON([
+                    "status" => false,
+                    "message" => "Client ID is required",
+                ]);
+        }
+    } catch (\Exception $e) {
+        // Log or display the error message
+        $errorMessage = $e->getMessage() . "\n" . $e->getTraceAsString();
+        error_log($errorMessage);
+        return $this->response
+            ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+            ->setJSON([
+                "status" => false,
+                "message" => "An error occurred while updating client detail",
+            ]);
+    }
+}
+
+
 }
