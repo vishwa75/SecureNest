@@ -40,7 +40,7 @@
             
             <!-- Main Content -->
             <div class="p-2 h-full bg-gray-50">
-                <?= $this->renderSection('content'); ?>
+                <?= $this->renderSection('maincontent'); ?>
             </div>
         </div>
     </section>

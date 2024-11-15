@@ -2,10 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\ServerDetailsModel;
+
 class HomeController extends BaseController
 {
     public function index(): string
-    {
-        return view('homeView');
+    {   
+        $serverDetails = new ServerDetailsModel();
+        
+        $viewObject = [
+            'serverDetails' => $serverDetails->findAll(),
+        ];
+        
+        return view('homeView', $viewObject);
     }
 }
+
