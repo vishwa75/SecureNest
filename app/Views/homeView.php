@@ -13,10 +13,9 @@
                             <div class="ml-3">Name</div>
                             <div class="mr-3">Add +</div>
                         </div>
-                        <table class="table-auto w-full text-left border-collapse border border-gray-300">
+                        <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
                             <thead>
-                                <tr class="bg-gray-200 text-center">
-                                    <th class="border border-gray-300">ClientID</th>
+                                <tr class="bg-gray-200 text-center font-light text-sm">
                                     <th class="border border-gray-300">Environment</th>
                                     <th class="border border-gray-300">IP</th>
                                     <th class="border border-gray-300">UserName</th>
@@ -26,13 +25,11 @@
                                     <th class="border border-gray-300">OSVersion</th>
                                     <th class="border border-gray-300">AdditionalDetails</th>
                                     <th class="border border-gray-300">LastUpdatedDate</th>
-                                    <th class="border border-gray-300">IsActive</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php foreach ($serverDetails as $server): ?>
-                                <tr class="text-center">
-                                    <td class="border border-gray-300"><?= $server['ClientID'] ?></td>
+                                <tr class="text-center text-sm font-normal hover:bg-gray-100">
                                     <td class="border border-gray-300"><?= $server['Environment'] ?></td>
                                     <td class="border border-gray-300"><?= $server['IP'] ?></td>
                                     <td class="border border-gray-300"><?= $server['UserName'] ?></td>
@@ -42,7 +39,6 @@
                                     <td class="border border-gray-300"><?= $server['OSVersion'] ?></td>
                                     <td class="border border-gray-300"><?= $server['AdditionalDetails'] ?></td>
                                     <td class="border border-gray-300"><?= $server['LastUpdatedDate'] ?></td>
-                                    <td class="border border-gray-300"><?= $server['IsActive'] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -55,24 +51,42 @@
                             <div class="ml-3">Name</div>
                             <div class="mr-3">Add +</div>
                         </div>
-                        <table class="table-auto w-full text-left border-collapse border border-gray-300">
+                        <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
                             <thead>
-                                <tr class="bg-gray-200 text-center">
-                                    <th class="border border-gray-300">ID</th>
-                                    <th class="border border-gray-300">Name</th>
-                                    <th class="border border-gray-300">Email</th>
-                                    <th class="border border-gray-300">Phone</th>
+                                <tr class="bg-gray-200 text-center font-light text-sm">
+                                    <th class="border border-gray-300">AppName</th>
+                                    <th class="border border-gray-300">AppVersion</th>
+                                    <th class="border border-gray-300">AppType</th>
+                                    <th class="border border-gray-300">ApplicationServer</th>
+                                    <th class="border border-gray-300">ApplicationServerVersion</th>
+                                    <th class="border border-gray-300">WebserverVersion</th>
+                                    <!-- <th class="border border-gray-300">AppDependency</th> -->
+                                    <!-- <th class="border border-gray-300">AdditionalDetails</th> -->
+                                    <th class="border border-gray-300">LastUpdatedDate</th>
+                                    <th class="border border-gray-300">More</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td class="border border-gray-300">1</td>
-                                    <td class="border border-gray-300">Alice Smith</td>
-                                    <td class="border border-gray-300">alice@example.com</td>
-                                    <td class="border border-gray-300">123-456-7890</td>
-                                </tr>
-                                
-                                <!-- Add more rows as needed -->
+                            <?php foreach ($serviceDetails as $index => $service): ?>
+        <tr class="text-center text-sm font-normal hover:bg-gray-100" id="row-<?= $index ?>" data-index="<?= $index ?>">
+            <td class="border border-gray-300"><?= $service['AppName'] ?></td>
+            <td class="border border-gray-300"><?= $service['AppVersion'] ?></td>
+            <td class="border border-gray-300"><?= $service['AppType'] ?></td>
+            <td class="border border-gray-300"><?= $service['ApplicationServer'] ?></td>
+            <td class="border border-gray-300"><?= $service['ApplicationServerVersion'] ?></td>
+            <td class="border border-gray-300"><?= $service['WebserverVersion'] ?></td>
+            <td class="border border-gray-300"><?= $service['LastUpdatedDate'] ?></td>
+            <td class="border border-gray-300 hover:bg-gray-400">
+                <i class="material-icons cursor-pointer" data-toggle="row-<?= $index ?>">more_vert</i>
+            </td>
+        </tr>
+        <tr id="toggle-row-<?= $index ?>" class="toggle-row" style="display: none;">
+            <td colspan="8">
+                <div class="h-6 w-full bg-red-600"></div>
+            </td>
+        </tr>
+    <?php endforeach; ?>   
+
                             </tbody>
                         </table>
                     </div>
@@ -82,34 +96,47 @@
                             <div class="ml-3">Name</div>
                             <div class="mr-3">Add +</div>
                         </div>
-                        <table class="table-auto w-full text-left border-collapse border border-gray-300">
+                        <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
                             <thead>
-                                <tr class="bg-gray-200 text-center">
-                                    <th class="border border-gray-300">ID</th>
-                                    <th class="border border-gray-300">Name</th>
-                                    <th class="border border-gray-300">Email</th>
-                                    <th class="border border-gray-300">Phone</th>
-                                    <th class="border border-gray-300">Phone1</th>
-                                    <th class="border border-gray-300">Phone2</th>
-                                    <th class="border border-gray-300">Phone3</th>
+                                <tr class="bg-gray-200 text-center font-light text-sm">
+                                    <th class="border border-gray-300">ConnectionType</th>
+                                    <th class="border border-gray-300">RDPType</th>
+                                    <th class="border border-gray-300">RDPIP</th>
+                                    <th class="border border-gray-300">ConnectionLink</th>
+                                    <th class="border border-gray-300">SPOC</th>
+                                    <th class="border border-gray-300">AdditionalDetails</th>
+                                    <th class="border border-gray-300">LastUpdatedDate</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td class="border border-gray-300">1</td>
-                                    <td class="border border-gray-300">Alice Smith</td>
-                                    <td class="border border-gray-300">alice@example.com</td>
-                                    <td class="border border-gray-300">123-456-7890</td>
-                                    <td class="border border-gray-300">123-456-7890</td>
-                                    <td class="border border-gray-300">123-456-7890</td>
-                                    <td class="border border-gray-300">123-456-7890</td>
+                            <?php foreach ($connectivityDetails as $connectivity): ?>
+                                <tr class="text-center text-sm font-normal hover:bg-gray-100">
+                                    <td class="border border-gray-300"><?= $connectivity['ConnectionType'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['RDPType'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['RDPIP'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['ConnectionLink'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['SPOC'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['AdditionalDetails'] ?></td>
+                                    <td class="border border-gray-300"><?= $connectivity['LastUpdatedDate'] ?></td>
                                 </tr>
-                                
-                                <!-- Add more rows as needed -->
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        // Initialize the rows
+        $('.material-icons').click(function() {
+            var index = $(this).data('toggle');
+            var toggleRow = $('#toggle-row-' + index);
+
+            // Toggle the visibility of the row
+            toggleRow.toggle();
+        });
+    });
+</script>
                 
 <?= $this->endSection(); ?>

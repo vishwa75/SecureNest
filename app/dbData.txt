@@ -1,0 +1,89 @@
+
+
+CREATE TABLE ServerDetails (
+	ID INT NOT NULL PRIMARY KEY,
+    ClientID INT NOT NULL,
+    Environment VARCHAR(50) NOT NULL,
+    IP VARCHAR(45) NOT NULL,
+    UserName VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    Memory VARCHAR(20) NOT NULL,
+    DiskSpace VARCHAR(20) NOT NULL,
+    OSVersion VARCHAR(100) NOT NULL,
+    AdditionalDetails TEXT,
+    CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    IsActive TINYINT(1) DEFAULT 1 -- 1 = Active, 0 = Inactive
+);
+
+
+CREATE TABLE ServiceDetails (
+	ID INT NOT NULL PRIMARY KEY,
+    ClientID INT NOT NULL,
+    AppName VARCHAR(100) NOT NULL,
+    AppVersion VARCHAR(50) NOT NULL,
+    AppType VARCHAR(50) NOT NULL,
+    ApplicationServer VARCHAR(100) NOT NULL,
+    ApplicationServerVersion VARCHAR(50) NOT NULL,
+    WebserverVersion VARCHAR(50) NOT NULL,
+    AppDependency TEXT,
+    AdditionalDetails TEXT,
+    CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    IsActive TINYINT(1) DEFAULT 1
+);
+
+
+CREATE TABLE ConnectivityDetails (
+    ID INT NOT NULL PRIMARY KEY,
+    ClientID INT NOT NULL,
+    ConnectionType VARCHAR(50) NOT NULL,
+    RDPType VARCHAR(50) NOT NULL,
+    RDPIP VARCHAR(45) NOT NULL,
+    ConnectionLink VARCHAR(255),
+    SPOC VARCHAR(100),
+    AdditionalDetails TEXT,
+    CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    IsActive TINYINT(1) DEFAULT 1
+);
+
+
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (1,12345,'Production','192.168.1.1','admin','password123','16GB','500GB','Windows Server 2019','Main production server','2024-11-16 00:19:56','2024-11-16 00:19:56',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (2,12345,'Development','192.168.1.2','dev_user','devpassword','8GB','200GB','Ubuntu 20.04','Development environment for new projects','2024-11-16 00:20:02','2024-11-16 00:20:02',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (3,12345,'Testing','192.168.1.3','test_user','testpassword','4GB','100GB','CentOS 8','Server for testing purposes','2024-11-16 00:20:12','2024-11-16 00:20:12',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (4,12345,'Production','192.168.2.1','admin','password123','32GB','1TB','Windows Server 2016','Backup production server','2024-11-16 00:20:24','2024-11-16 00:20:24',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (5,12345,'Staging','192.168.2.2','staging_user','stagingpassword','16GB','500GB','RedHat 8','Staging environment for pre-release tests','2024-11-16 00:20:35','2024-11-16 00:20:35',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (6,67890,'Production','192.168.3.1','prod_admin','prodpassword','64GB','2TB','Windows Server 2022','Main production server for client 67890','2024-11-16 00:21:07','2024-11-16 00:21:07',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (7,67890,'Development','192.168.3.2','dev_user','devpassword','8GB','250GB','Ubuntu 18.04','Development environment for client 67890','2024-11-16 00:21:19','2024-11-16 00:21:19',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (8,67890,'Testing','192.168.3.3','test_user','testpassword','8GB','200GB','CentOS 7','Testing server for client 67890','2024-11-16 00:21:29','2024-11-16 00:21:29',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (9,67890,'Production','192.168.4.1','admin','adminpassword','128GB','4TB','Windows Server 2021','Primary production server for critical tasks','2024-11-16 00:21:40','2024-11-16 00:21:40',1);
+INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (10,67890,'Staging','192.168.4.2','staging_admin','stagingpassword','32GB','1TB','RedHat 7','Staging server for client 67890','2024-11-16 00:21:56','2024-11-16 00:21:56',1);
+
+INSERT INTO ConnectivityDetails (ID, ClientID, ConnectionType, RDPType, RDPIP, ConnectionLink, SPOC, AdditionalDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES
+  (1, 101, 'VPN', 'RDP', '192.168.1.10', 'https://vpn.example.com', 'John Doe', 'Additional details for connection 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (2, 102, 'Direct Connection', 'RDP', '192.168.1.20', NULL, 'Jane Smith', 'Additional details for connection 2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (3, 103, 'Remote Desktop', 'RDP', '192.168.1.30', NULL, 'Michael Johnson', 'Additional details for connection 3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (4, 104, 'VPN', 'RDP', '192.168.1.40', 'https://vpn.example.com', 'Emily Davis', 'Additional details for connection 4', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (5, 105, 'Direct Connection', 'RDP', '192.168.1.50', NULL, 'David Miller', 'Additional details for connection 5', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (6, 106, 'Remote Desktop', 'RDP', '192.168.1.60', NULL, 'Sarah Wilson', 'Additional details for connection 6', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (7, 107, 'VPN', 'RDP', '192.168.1.70', 'https://vpn.example.com', 'Thomas Anderson', 'Additional details for connection 7', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (8, 108, 'Direct Connection', 'RDP', '192.168.1.80', NULL, 'Olivia Taylor', 'Additional details for connection 8', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (9, 109, 'Remote Desktop', 'RDP', '192.168.1.90', NULL, 'James Brown', 'Additional details for connection 9', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+  (10, 110, 'VPN', 'RDP', '192.168.1.100', 'https://vpn.example.com', 'Jennifer Lopez', 'Additional details for connection 10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+
+
+INSERT INTO ServiceDetails (ID, ClientID, AppName, AppVersion, AppType, ApplicationServer, ApplicationServerVersion, WebserverVersion, AppDependency, AdditionalDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES
+(1, 12345, 'FinanceApp', '1.0.0', 'Web', 'Tomcat', '9.0.71', 'Apache 2.4', 'MySQL, Java 11', 'Critical business application', DEFAULT, DEFAULT, 1),
+(2, 12345, 'InventoryApp', '2.1.3', 'Desktop', 'WebLogic', '12.2.1.4', 'Nginx 1.21', 'Oracle DB, Java 8', 'Handles stock and inventory', DEFAULT, DEFAULT, 1),
+(3, 12345, 'HRMS', '3.4.5', 'Web', 'JBoss', '7.3', 'Apache 2.2', 'PostgreSQL, Python 3.8', 'Employee management system', DEFAULT, DEFAULT, 1),
+(4, 12345, 'CRMSystem', '4.5.2', 'Mobile', 'WildFly', '26.1.0', 'IIS 10', 'MongoDB, Node.js', 'Customer relationship management', DEFAULT, DEFAULT, 1),
+(5, 12345, 'AnalyticsApp', '5.0.0', 'Web', 'GlassFish', '5.1.0', 'LiteSpeed 5.4', 'Hadoop, Spark', 'Big data analytics tool', DEFAULT, DEFAULT, 1),
+(6, 67890, 'BillingApp', '6.0.1', 'Desktop', 'Tomcat', '10.1.7', 'Apache 2.4', 'SQL Server, .NET 6', 'Handles client billing', DEFAULT, DEFAULT, 1),
+(7, 67890, 'ECommerceApp', '2.0.0', 'Web', 'WebLogic', '14.1.1.0', 'Nginx 1.23', 'Redis, React.js', 'Online shopping platform', DEFAULT, DEFAULT, 1),
+(8, 67890, 'PayrollSystem', '1.2.3', 'Web', 'JBoss', '8.0', 'Apache 2.2', 'PostgreSQL, Java 11', 'Employee payroll management', DEFAULT, DEFAULT, 1),
+(9, 67890, 'TaskManager', '3.3.1', 'Mobile', 'WildFly', '27.0.1', 'IIS 10', 'SQLite, Kotlin', 'Task management system', DEFAULT, DEFAULT, 1),
+(10, 67890, 'CustomerPortal', '4.1.5', 'Web', 'GlassFish', '6.2.0', 'LiteSpeed 5.5', 'MariaDB, Angular', 'Client self-service portal', DEFAULT, DEFAULT, 1);
+
