@@ -8,7 +8,7 @@ class ServiceDetailsModel extends Model
 {
     protected $table = 'ServiceDetails';
     protected $primaryKey = 'ID';
-    protected $allowedFields = ['ClientID', 'AppName', 'AppVersion', 'AppType', 'ApplicationServer','ApplicationServerVersion','WebserverVersion','AppDependency','AdditionalDetails','CreateDate','LastUpdatedDate','IsActive'];
+    protected $allowedFields = ['ID', 'ClientID', 'AppName', 'AppVersion', 'AppType', 'AppWebServer', 'AppWebServerVersion', 'AppWebServerPath', 'StartUp', 'ShutDown', 'AppDependency', 'AdditionalDetails', 'CreateDate', 'LastUpdatedDate', 'IsActive'];
 
     public function getTableName()
     {

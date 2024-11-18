@@ -6,7 +6,7 @@
     <title><?= isset($title) ? $title : 'Secure Nest'; ?></title>
     <link rel="stylesheet" href="<?=base_url()?>css/output.css?v=1.0">
     <script src="<?=base_url()?>js/alpine.min.js" defer></script>
-    <script src="<?=base_url()?>js/jquery-3.7.1.min.js" defer></script>
+    <script src="<?=base_url()?>js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         body {

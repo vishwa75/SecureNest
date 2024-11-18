@@ -6,7 +6,7 @@
               :style="sideBarState ? 'visibility: visible;' : 'visibility: hidden;'">Secure Nest</span>
     </div>
     <i id="openCloseArrow" class="absolute -right-3 top-2 border-gray-800 p-1 rounded-full bg-gray-200 text-black 
-        material-icons flex items-center justify-center z-50 hover:bg-gray-800 hover:text-gray-200" 
+        material-icons flex items-center justify-center z-10 hover:bg-gray-800 hover:text-gray-200" 
         @click="sideBarState = !sideBarState">
         <span class="material-symbols-outlined">swap_horiz</span>
     </i>

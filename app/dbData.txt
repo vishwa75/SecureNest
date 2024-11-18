@@ -23,9 +23,11 @@ CREATE TABLE ServiceDetails (
     AppName VARCHAR(100) NOT NULL,
     AppVersion VARCHAR(50) NOT NULL,
     AppType VARCHAR(50) NOT NULL,
-    ApplicationServer VARCHAR(100) NOT NULL,
-    ApplicationServerVersion VARCHAR(50) NOT NULL,
-    WebserverVersion VARCHAR(50) NOT NULL,
+    AppWebServer VARCHAR(100) NOT NULL,
+    AppWebServerVersion VARCHAR(50) NOT NULL,
+    AppWebServerPath VARCHAR(255) not null,
+    StartUp VARCHAR(255) not null,
+    ShutDown VARCHAR(255) not null,
     AppDependency TEXT,
     AdditionalDetails TEXT,
     CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -49,16 +51,7 @@ CREATE TABLE ConnectivityDetails (
 );
 
 
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (1,12345,'Production','192.168.1.1','admin','password123','16GB','500GB','Windows Server 2019','Main production server','2024-11-16 00:19:56','2024-11-16 00:19:56',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (2,12345,'Development','192.168.1.2','dev_user','devpassword','8GB','200GB','Ubuntu 20.04','Development environment for new projects','2024-11-16 00:20:02','2024-11-16 00:20:02',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (3,12345,'Testing','192.168.1.3','test_user','testpassword','4GB','100GB','CentOS 8','Server for testing purposes','2024-11-16 00:20:12','2024-11-16 00:20:12',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (4,12345,'Production','192.168.2.1','admin','password123','32GB','1TB','Windows Server 2016','Backup production server','2024-11-16 00:20:24','2024-11-16 00:20:24',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (5,12345,'Staging','192.168.2.2','staging_user','stagingpassword','16GB','500GB','RedHat 8','Staging environment for pre-release tests','2024-11-16 00:20:35','2024-11-16 00:20:35',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (6,67890,'Production','192.168.3.1','prod_admin','prodpassword','64GB','2TB','Windows Server 2022','Main production server for client 67890','2024-11-16 00:21:07','2024-11-16 00:21:07',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (7,67890,'Development','192.168.3.2','dev_user','devpassword','8GB','250GB','Ubuntu 18.04','Development environment for client 67890','2024-11-16 00:21:19','2024-11-16 00:21:19',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (8,67890,'Testing','192.168.3.3','test_user','testpassword','8GB','200GB','CentOS 7','Testing server for client 67890','2024-11-16 00:21:29','2024-11-16 00:21:29',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (9,67890,'Production','192.168.4.1','admin','adminpassword','128GB','4TB','Windows Server 2021','Primary production server for critical tasks','2024-11-16 00:21:40','2024-11-16 00:21:40',1);
-INSERT INTO `` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES (10,67890,'Staging','192.168.4.2','staging_admin','stagingpassword','32GB','1TB','RedHat 7','Staging server for client 67890','2024-11-16 00:21:56','2024-11-16 00:21:56',1);
+
 
 INSERT INTO ConnectivityDetails (ID, ClientID, ConnectionType, RDPType, RDPIP, ConnectionLink, SPOC, AdditionalDetails, CreateDate, LastUpdatedDate, IsActive)
 VALUES
@@ -87,3 +80,16 @@ VALUES
 (9, 67890, 'TaskManager', '3.3.1', 'Mobile', 'WildFly', '27.0.1', 'IIS 10', 'SQLite, Kotlin', 'Task management system', DEFAULT, DEFAULT, 1),
 (10, 67890, 'CustomerPortal', '4.1.5', 'Web', 'GlassFish', '6.2.0', 'LiteSpeed 5.5', 'MariaDB, Angular', 'Client self-service portal', DEFAULT, DEFAULT, 1);
 
+
+
+ INSERT INTO `ServerDetails` (`ID`,`ClientID`,`Environment`,`IP`,`UserName`,`Password`,`Memory`,`DiskSpace`,`OSVersion`,`AdditionalDetails`,`CreateDate`,`LastUpdatedDate`,`IsActive`) VALUES
+ (1,12345,'Production','192.168.1.1','admin','password123','16GB','500GB','Windows Server 2019','Main production server','2024-11-16 00:19:56','2024-11-16 00:19:56',1),
+ (2,12345,'Development','192.168.1.2','dev_user','devpassword','8GB','200GB','Ubuntu 20.04','Development environment for new projects','2024-11-16 00:20:02','2024-11-16 00:20:02',1),
+ (3,12345,'Testing','192.168.1.3','test_user','testpassword','4GB','100GB','CentOS 8','Server for testing purposes','2024-11-16 00:20:12','2024-11-16 00:20:12',1),
+ (4,12345,'Production','192.168.2.1','admin','password123','32GB','1TB','Windows Server 2016','Backup production server','2024-11-16 00:20:24','2024-11-16 00:20:24',1),
+ (5,12345,'Staging','192.168.2.2','staging_user','stagingpassword','16GB','500GB','RedHat 8','Staging environment for pre-release tests','2024-11-16 00:20:35','2024-11-16 00:20:35',1),
+ (6,67890,'Production','192.168.3.1','prod_admin','prodpassword','64GB','2TB','Windows Server 2022','Main production server for client 67890','2024-11-16 00:21:07','2024-11-16 00:21:07',1),
+ (7,67890,'Development','192.168.3.2','dev_user','devpassword','8GB','250GB','Ubuntu 18.04','Development environment for client 67890','2024-11-16 00:21:19','2024-11-16 00:21:19',1),
+ (8,67890,'Testing','192.168.3.3','test_user','testpassword','8GB','200GB','CentOS 7','Testing server for client 67890','2024-11-16 00:21:29','2024-11-16 00:21:29',1),
+ (9,67890,'Production','192.168.4.1','admin','adminpassword','128GB','4TB','Windows Server 2021','Primary production server for critical tasks','2024-11-16 00:21:40','2024-11-16 00:21:40',1),
+ (10,67890,'Staging','192.168.4.2','staging_admin','stagingpassword','32GB','1TB','RedHat 7','Staging server for client 67890','2024-11-16 00:21:56','2024-11-16 00:21:56',1);
