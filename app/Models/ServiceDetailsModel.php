@@ -15,4 +15,6 @@ class ServiceDetailsModel extends Model
         return $this->table;
     }
 
+    
+
 }

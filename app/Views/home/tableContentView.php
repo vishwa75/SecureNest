@@ -1,20 +1,7 @@
-    <?= $this->extend('layout'); ?>
-
-    <?= $this->section('maincontent'); ?>
-
-    <div id="overlay" class="fixed z-20 w-full h-full top-0 right-0 left-0 bottom-0 bg-gray-300 opacity-50" :class="addCollection ? 'block' : 'hidden'">
-
-    </div>
-
-    <div x-data="{ addCollection: true }" class="flex h-full space-x-2">
-                    <div class="max-h-screen w-48 rounded-lg flex flex-col items-center pt-4 overflow-auto space-y-2 bg-gray-200">
-                        <div   @click="addCollection = !addCollection"  id="addCollection" class="py-1 w-4/5 border border-gray-800 rounded-lg text-center font-semibold text-base hover:bg-gray-800 hover:text-white hover:scale-105">New Entry +</div>
-                    </div>
-
-                    <div class="w-full h-full overflow-auto p-1 space-y-4">
+<div id="tableContentview" class="w-full h-full overflow-auto p-1 space-y-4">
                         <div>
                             <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
-                                <div class="ml-3">Name</div>
+                                <div class="ml-3">Server</div>
                                 <div class="mr-3">Add +</div>
                             </div>
                             <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
@@ -52,7 +39,7 @@
                         
                         <div>
                             <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
-                                <div class="ml-3">Name</div>
+                                <div class="ml-3">Service</div>
                                 <div class="mr-3">Add +</div>
                             </div>
                             <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
@@ -124,7 +111,7 @@
 
                         <div>
                             <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
-                                <div class="ml-3">Name</div>
+                                <div class="ml-3">Connectivity</div>
                                 <div class="mr-3">Add +</div>
                             </div>
                             <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
@@ -155,26 +142,3 @@
                             </table>
                         </div>
                     </div>
-    </div>
-
-
-
-    <script>
-        
-        $(document).ready(function() {
-        // Event delegation for dynamically added elements
-        $(document).on('click', '.moreClick', function() {
-            var toggleRowId = $(this).data('toggle'); // Get the row ID
-            console.log('toggleRowId ---> '+ toggleRowId);
-            var toggleRow = $('#' + toggleRowId); // Select the row by ID
-            
-            // Toggle the visibility of the row
-            toggleRow.toggle();
-            $(this).toggleClass('text-green-500');
-        });
-
-    });
-
-    </script>
-                    
-    <?= $this->endSection(); ?>
