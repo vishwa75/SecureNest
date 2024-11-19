@@ -6,27 +6,35 @@ use App\Models\ServerDetailsModel;
 use App\Models\ServiceDetailsModel;
 use App\Models\ConnectivityDetailsModel;
 use App\Models\CollectionTableModel;
-use CodeIgniter\Debug\Toolbar\Collectors\Views;
+use App\Models\TableDetailModel;
 use Exception;
 
 class HomeController extends BaseController
 {
     public function index(): string
-    {   
-        $serverDetails = new ServerDetailsModel();
-        $ServiceDetails = new ServiceDetailsModel();
-        $ConnectivityDetails = new ConnectivityDetailsModel();
-        $CollectionTable = new CollectionTableModel();
+        {
+            $serverDetails = new ServerDetailsModel();
+            $ServiceDetails = new ServiceDetailsModel();
+            $ConnectivityDetails = new ConnectivityDetailsModel();
+            $CollectionTable = new CollectionTableModel();
+            $TableDetail = new TableDetailModel();
+
+            $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
+            $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
+            $ServiceDetailsMore = explode(",",$ServiceDetailsTableData['ColumnModeDetails']);
         
-        $viewObject = [
-            'serverDetails' => $serverDetails->findAll(),
-            'serviceDetails' => $ServiceDetails->findAll(),
-            'connectivityDetails' => $ConnectivityDetails->findAll(),
-            'collectionTable' => $CollectionTable->findAll(),
-        ];
-        
-        return view('home/homeView', $viewObject);
-    }
+            $viewObject = [
+                'serverDetails' => $serverDetails->findAll(),
+                'serviceDetailsTableHeader' => $ServiceDetailsHeader,
+                'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->findAll(),
+                'serviceDetailsTableMore' => $ServiceDetailsMore,
+                'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->findAll(),
+                'connectivityDetails' => $ConnectivityDetails->findAll(),
+                'collectionTable' => $CollectionTable->findAll(),
+            ];
+
+            return view('home/homeView', $viewObject);
+        }
 
     public function SaveCollection(): string
     {
@@ -36,7 +44,6 @@ class HomeController extends BaseController
         $clientId = $this->request->getPost('clientID');
 
         $CollectionTable = new CollectionTableModel();
-
       
             $CollectionTable->insert([
                 'ClientID' => $clientId,
@@ -45,8 +52,6 @@ class HomeController extends BaseController
                 'MakerId' => '2345',
                 'Maker' => 'YouAndI'
             ]);
-           
-        
 
         $viewObject = [
             'collectionTable' => $CollectionTable->findAll(),
@@ -62,13 +67,21 @@ class HomeController extends BaseController
         $serverDetails = new ServerDetailsModel();
         $ServiceDetails = new ServiceDetailsModel();
         $ConnectivityDetails = new ConnectivityDetailsModel();
+        $TableDetail = new TableDetailModel();
+
+            $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
+            $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
+            $ServiceDetailsMore = explode(",",$ServiceDetailsTableData['ColumnModeDetails']);
 
         $viewObject = [
             'serverDetails' => $serverDetails->where('ClientID', $ClientID)->findAll(),
+            'serviceDetailsTableHeader' => $ServiceDetailsHeader,
+            'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
+            'serviceDetailsTableMore' => $ServiceDetailsMore,
+            'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->where('ClientID', $ClientID)->findAll(),
             'serviceDetails' => $ServiceDetails->where('ClientID', $ClientID)->findAll(),
             'connectivityDetails' => $ConnectivityDetails->where('ClientID', $ClientID)->findAll(),
         ];
-
         return View('home/tableContentView', $viewObject);
     }
 }

@@ -63,6 +63,20 @@ IsActive TINYINT(1) DEFAULT 1
 );
 
 
+create table TableDetails(
+	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	TableName varchar(255) NOT NULL UNIQUE,
+	ColumnPrimaryKey varchar(255),
+	ColumnFullList TEXT,
+	ColumnHeader TEXT,
+	ColumnHidden TEXT,
+	ColumnModeDetails TEXT,
+	CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    IsActive TINYINT(1) DEFAULT 1 
+);
+
+
 
 INSERT INTO ConnectivityDetails (ID, ClientID, ConnectionType, RDPType, RDPIP, ConnectionLink, SPOC, AdditionalDetails, CreateDate, LastUpdatedDate, IsActive)
 VALUES
@@ -121,3 +135,16 @@ VALUES
     (8, 108, 'Client Collections H', 1008, 'Frank Blue', '2024-11-18 11:10:00', '2024-11-18 11:10:00', 1),
     (9, 109, 'Client Collections I', 1009, 'Grace Yellow', '2024-11-18 11:20:00', '2024-11-18 11:20:00', 1),
     (10, 110, 'Client Collections J', 1010, 'Henry Red', '2024-11-18 11:30:00', '2024-11-18 11:30:00', 1);
+
+
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES('ConnectivityDetails', 'ID', '', 'ClientID|ConnectionType|RDPType|RDPIP|ConnectionLink|SPOC|AdditionalDetails|CreateDate|LastUpdatedDate|IsActive', 'ConnectionType|RDPType|RDPIP|ConnectionLink|SPOC|AdditionalDetails|LastUpdatedDate', 'ClientID|CreateDate|IsActive', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES('ServiceDetails', 'ID', '', 'ID|ClientID|AppName|AppVersion|AppType|AppWebServer|AppWebServerVersion|AppWebServerPath|StartUp|ShutDown|AppDependency|AdditionalDetails| CreateDate|LastUpdatedDate|IsActive', 'AppName|AppVersion|AppType|AppWebServer|AppWebServerVersion', '', 'AppWebServerPath|StartUp|ShutDown|AppDependency|AdditionalDetails|CreateDate|LastUpdatedDate|IsActive', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES('ServerDetails', 'ID', '', 'ClientID|Environment|IP|UserName|Password|Memory|DiskSpace|OSVersion|AdditionalDetails|CreateDate|LastUpdatedDate|IsActive', 'Environment|IP|UserName|Password|Memory|DiskSpace|OSVersion|AdditionalDetails|LastUpdatedDate', 'ClientID|CreateDate|IsActive', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);

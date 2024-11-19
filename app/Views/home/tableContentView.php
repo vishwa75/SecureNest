@@ -45,24 +45,18 @@
                             <table class="table-auto w-full text-left border-collapse border border-gray-300 overflow-x-auto">
                                 <thead>
                                     <tr class="bg-gray-200 text-center font-light text-sm">
-                                        <th class="border border-gray-300">AppName</th>
-                                        <th class="border border-gray-300">AppVersion</th>
-                                        <th class="border border-gray-300">AppType</th>
-                                        <th class="border border-gray-300">AppWebServer</th>
-                                        <th class="border border-gray-300">AppWebServerVersion</th>
-                                        <th class="border border-gray-300">LastUpdatedDate</th>
-                                        <th class="border border-gray-300">More</th>
+                                        <?php foreach ($serviceDetailsTableHeader as $index => $header): ?>
+                                            <th class="border border-gray-300"><?= $header ?></th>
+                                        <?php endforeach; ?> 
+                                        <th class="border border-gray-300">More</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($serviceDetails as $index => $service): ?>
+                                <?php foreach ($serviceDetailsTableHeaderData as $index => $servicedata): ?>
                                     <tr class="text-center text-sm font-normal hover:bg-gray-100" id="row-<?= $index ?>" data-index="<?= $index ?>">
-                                        <td class="border border-gray-300"><?= $service['AppName'] ?></td>
-                                        <td class="border border-gray-300"><?= $service['AppVersion'] ?></td>
-                                        <td class="border border-gray-300"><?= $service['AppType'] ?></td>
-                                        <td class="border border-gray-300"><?= $service['AppWebServer'] ?></td>
-                                        <td class="border border-gray-300"><?= $service['AppWebServerVersion'] ?></td>
-                                        <td class="border border-gray-300"><?= $service['LastUpdatedDate'] ?></td>
+                                        <?php foreach ($serviceDetailsTableHeader as $header): ?>
+                                            <td class="border border-gray-300"><?= $servicedata[$header] ?></td>
+                                        <?php endforeach; ?> 
                                         <td class="border border-gray-300 hover:bg-gray-400">
                                             <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-row-<?= $index ?>">read_more</i>
                                         </td>
@@ -70,41 +64,17 @@
                                     <tr id="toggle-row-<?= $index ?>" class="toggle-row" style="display: none;">
                                         <td colspan="8">
                                             <div class="w-full bg-gray-200 grid grid-cols-2 border-2">
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">AppWebServerPath</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['AppWebServerPath'] ?></div>
-                                                </div>
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">StartUp</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['StartUp'] ?></div>
-                                                </div>
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">ShutDown</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['ShutDown'] ?></div>
-                                                </div>
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">AppDependency</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['AppDependency'] ?></div>
-                                                </div>
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">AdditionalDetails</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['AdditionalDetails'] ?></div>
-                                                </div>
-                                                <div class="flex space-x-10 my-4 pl-4">
-                                                    <div class="font-semibold">CreateDate</div>
-                                                    <div>:</div>
-                                                    <div><?= $service['CreateDate'] ?></div>
-                                                </div>
+                                                <?php foreach ($serviceDetailsTableMore as $index => $header): ?>
+                                                    <div class="flex space-x-10 my-4 pl-4">
+                                                        <div class="font-semibold"><?= $header ?></div>
+                                                        <div>:</div>
+                                                        <div><?= $serviceDetailsTableMoreData[$index][$header] ?></div>
+                                                    </div>
+                                                <?php endforeach; ?>    
                                             </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>   
-
                                 </tbody>
                             </table>
                         </div>
