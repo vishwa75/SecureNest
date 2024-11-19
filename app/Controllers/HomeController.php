@@ -22,14 +22,25 @@ class HomeController extends BaseController
             $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
             $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
             $ServiceDetailsMore = explode(",",$ServiceDetailsTableData['ColumnModeDetails']);
-        
+
+            $ServerDetailsTableDate = $TableDetail->where('TableName','ServerDetails')->first();
+            $ServerDetailsHeader = explode(",",$ServerDetailsTableDate['ColumnHeader']);
+
+            $ConnectivityDetailsData = $TableDetail->where('TableName','ConnectivityDetails')->first();
+            $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
+            
             $viewObject = [
-                'serverDetails' => $serverDetails->findAll(),
+                'serverDetailsTableHeader' => $ServerDetailsHeader,
+                'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->findAll(),
+
                 'serviceDetailsTableHeader' => $ServiceDetailsHeader,
                 'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->findAll(),
                 'serviceDetailsTableMore' => $ServiceDetailsMore,
                 'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->findAll(),
-                'connectivityDetails' => $ConnectivityDetails->findAll(),
+
+                'connectivityDetailsHeader' => $ConnectivityDetailsDataHeader,
+                'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->findAll(),
+
                 'collectionTable' => $CollectionTable->findAll(),
             ];
 
@@ -57,7 +68,7 @@ class HomeController extends BaseController
             'collectionTable' => $CollectionTable->findAll(),
         ];
 
-        return view('home/collectionList', $viewObject); 
+        return view('home/collectionListView', $viewObject); 
     }
 
     public function GetClientDataByClientID(): string{

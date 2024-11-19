@@ -51,22 +51,26 @@ CREATE TABLE ConnectivityDetails (
 );
 
 
-CREATE TABLE CollectionTable (
-ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-ClientID INT NOT NULL,
-CollectionName VARCHAR(255) NOT NULL,
-MakerId INT NOT null,
-Maker VARCHAR(255) NOT NULL,
-CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-IsActive TINYINT(1) DEFAULT 1
+-- securenest.collectiontable definition with unique ClientID
+CREATE TABLE collectiontable (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ClientID INTEGER NOT NULL UNIQUE,
+  CollectionName TEXT NOT NULL,
+  collectionDescription TEXT,
+  MakerId INTEGER NOT NULL,
+  Maker TEXT NOT NULL,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
 );
+
 
 
 create table TableDetails(
 	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	TableName varchar(255) NOT NULL UNIQUE,
 	ColumnPrimaryKey varchar(255),
+    ColumnUnique text,
 	ColumnFullList TEXT,
 	ColumnHeader TEXT,
 	ColumnHidden TEXT,
@@ -148,3 +152,153 @@ VALUES('ServiceDetails', 'ID', '', 'ID|ClientID|AppName|AppVersion|AppType|AppWe
 INSERT INTO tabledetails
 (TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
 VALUES('ServerDetails', 'ID', '', 'ClientID|Environment|IP|UserName|Password|Memory|DiskSpace|OSVersion|AdditionalDetails|CreateDate|LastUpdatedDate|IsActive', 'Environment|IP|UserName|Password|Memory|DiskSpace|OSVersion|AdditionalDetails|LastUpdatedDate', 'ClientID|CreateDate|IsActive', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+
+
+
+
+SQLite
+--drop table collectiontable;
+--
+--drop table connectivitydetails;
+--
+--drop table serverdetails;
+--
+--drop table tabledetails;
+--
+--drop table servicedetails;
+
+
+
+-- securenest.collectiontable definition with unique ClientID
+CREATE TABLE collectiontable (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ClientID TEXT NOT NULL UNIQUE, -- Ensures ClientID is unique
+  CollectionName TEXT NOT NULL,
+  collectionDescription TEXT,
+  MakerId INTEGER NOT NULL,
+  Maker TEXT NOT NULL,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
+);
+
+
+-- securenest.connectivitydetails definition
+CREATE TABLE connectivitydetails (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ClientID TEXT NOT NULL,
+  ConnectionType TEXT NOT NULL,
+  RDPType TEXT NOT NULL,
+  RDPIP TEXT NOT NULL,
+  ConnectionLink TEXT,
+  SPOC TEXT,
+  AdditionalDetails TEXT,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
+);
+
+-- securenest.serverdetails definition
+CREATE TABLE serverdetails (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ClientID TEXT NOT NULL,
+  Country TEXT NOT NULL,
+  Environment TEXT NOT NULL,
+  IP TEXT NOT NULL,
+  UserName TEXT NOT NULL,
+  Password TEXT NOT NULL,
+  Memory TEXT NOT NULL,
+  DiskSpace TEXT NOT NULL,
+  OSVersion TEXT NOT NULL,
+  AdditionalDetails TEXT,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
+);
+
+-- securenest.servicedetails definition
+CREATE TABLE servicedetails (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ClientID TEXT NOT NULL,
+  AppName TEXT NOT NULL,
+  AppVersion TEXT NOT NULL,
+  AppType TEXT NOT NULL,
+  AppWebServer TEXT NOT NULL,
+  AppWebServerVersion TEXT NOT NULL,
+  AppWebServerPath TEXT NOT NULL,
+  StartUp TEXT NOT NULL,
+  ShutDown TEXT NOT NULL,
+  AppDependency TEXT,
+  AdditionalDetails TEXT,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
+);
+
+-- securenest.tabledetails definition
+CREATE TABLE tabledetails (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  TableName TEXT NOT NULL UNIQUE,
+  ColumnPrimaryKey TEXT,
+  ColumnUnique TEXT,
+  ColumnFullList TEXT,
+  ColumnHeader TEXT,
+  ColumnHidden TEXT,
+  ColumnModeDetails TEXT,
+  CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  LastUpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  IsActive INTEGER DEFAULT 1
+);
+
+
+
+-- Insert data into tabledetails for ConnectivityDetails
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES
+(
+  'ConnectivityDetails',
+  'ID',
+  '',
+  'ClientID,ConnectionType,RDPType,RDPIP,ConnectionLink,SPOC,AdditionalDetails,CreateDate,LastUpdatedDate,IsActive',
+  'ConnectionType,RDPType,RDPIP,ConnectionLink,SPOC,AdditionalDetails,LastUpdatedDate',
+  'ClientID,CreateDate,IsActive',
+  '',
+  CURRENT_TIMESTAMP,
+  CURRENT_TIMESTAMP,
+  1
+);
+
+-- Insert data into tabledetails for ServiceDetails
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES
+(
+  'ServiceDetails',
+  'ID',
+  '',
+  'ID,ClientID,AppName,AppVersion,AppType,AppWebServer,AppWebServerVersion,AppWebServerPath,StartUp,ShutDown,AppDependency,AdditionalDetails,CreateDate,LastUpdatedDate,IsActive',
+  'AppName,AppVersion,AppType,AppWebServer,AppWebServerVersion',
+  '',
+  'AppWebServerPath,StartUp,ShutDown,AppDependency,AdditionalDetails,CreateDate,LastUpdatedDate,IsActive',
+  CURRENT_TIMESTAMP,
+  CURRENT_TIMESTAMP,
+  1
+);
+
+-- Insert data into tabledetails for ServerDetails
+INSERT INTO tabledetails
+(TableName, ColumnPrimaryKey, ColumnUnique, ColumnFullList, ColumnHeader, ColumnHidden, ColumnModeDetails, CreateDate, LastUpdatedDate, IsActive)
+VALUES
+(
+  'ServerDetails',
+  'ID',
+  '',
+  'ClientID,Environment,IP,UserName,Password,Memory,DiskSpace,OSVersion,AdditionalDetails,CreateDate,LastUpdatedDate,IsActive',
+  'Environment,IP,UserName,Password,Memory,DiskSpace,OSVersion,AdditionalDetails,LastUpdatedDate',
+  'ClientID,CreateDate,IsActive',
+  '',
+  CURRENT_TIMESTAMP,
+  CURRENT_TIMESTAMP,
+  1
+);
