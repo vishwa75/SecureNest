@@ -6,6 +6,7 @@ use App\Models\ServerDetailsModel;
 use App\Models\ServiceDetailsModel;
 use App\Models\ConnectivityDetailsModel;
 use App\Models\CollectionTableModel;
+use App\Models\ShowMenuModel;
 use App\Models\TableDetailModel;
 use Exception;
 
@@ -18,6 +19,7 @@ class HomeController extends BaseController
             $ConnectivityDetails = new ConnectivityDetailsModel();
             $CollectionTable = new CollectionTableModel();
             $TableDetail = new TableDetailModel();
+            $ShowMenu = new ShowMenuModel();
 
             $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
             $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
@@ -30,6 +32,9 @@ class HomeController extends BaseController
             $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
             
             $viewObject = [
+
+                'showMenu' => $ShowMenu->findAll(),
+
                 'serverDetailsTableHeader' => $ServerDetailsHeader,
                 'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->findAll(),
 
@@ -75,7 +80,6 @@ class HomeController extends BaseController
 {
     // Log the incoming client ID
     $ClientID = $this->request->getGet('clientID');
-    log_message('error', "Fetching data for ClientID: {$ClientID}");
 
     // Initialize models
     $serverDetails = new ServerDetailsModel();
@@ -83,31 +87,20 @@ class HomeController extends BaseController
     $ConnectivityDetails = new ConnectivityDetailsModel();
     $CollectionTable = new CollectionTableModel();
     $TableDetail = new TableDetailModel();
-
-    // Fetch Service Details Table Data
+    
     $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
-    log_message('error', 'ServiceDetailsTableData: ' . json_encode($ServiceDetailsTableData));
 
     $ServiceDetailsHeader = explode(",", $ServiceDetailsTableData['ColumnHeader']);
     $ServiceDetailsMore = explode(",", $ServiceDetailsTableData['ColumnModeDetails']);
-    log_message('error', 'ServiceDetailsHeader: ' . json_encode($ServiceDetailsHeader));
-    log_message('error', 'ServiceDetailsMore: ' . json_encode($ServiceDetailsMore));
 
-    // Fetch Server Details Table Data
     $ServerDetailsTableDate = $TableDetail->where('TableName', 'ServerDetails')->first();
-    log_message('error', 'ServerDetailsTableDate: ' . json_encode($ServerDetailsTableDate));
 
     $ServerDetailsHeader = explode(",", $ServerDetailsTableDate['ColumnHeader']);
-    log_message('error', 'ServerDetailsHeader: ' . json_encode($ServerDetailsHeader));
 
-    // Fetch Connectivity Details Table Data
     $ConnectivityDetailsData = $TableDetail->where('TableName', 'ConnectivityDetails')->first();
-    log_message('error', 'ConnectivityDetailsData: ' . json_encode($ConnectivityDetailsData));
 
     $ConnectivityDetailsDataHeader = explode(",", $ConnectivityDetailsData['ColumnHeader']);
-    log_message('error', 'ConnectivityDetailsDataHeader: ' . json_encode($ConnectivityDetailsDataHeader));
 
-    // Prepare view object
     $viewObject = [
         'serverDetailsTableHeader' => $ServerDetailsHeader,
         'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
@@ -121,11 +114,7 @@ class HomeController extends BaseController
         'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
     ];
     
-    // Log the prepared view object
-    log_message('error', 'Prepared viewObject: ' . json_encode($viewObject));
 
-    // Render and return the view
-    log_message('error', 'Rendering view: home/tableContentView');
     return View('home/tableContentView', $viewObject);
 }
 

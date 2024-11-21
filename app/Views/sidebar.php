@@ -10,10 +10,12 @@
 </div>
 <nav class="mt-16 flex-grow">
     <ul class="space-y-4">
-        <li class="flex items-center space-x-2 text-white p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
-            <i class="material-icons">dashboard</i>
-            <span class="font-semibold menu-item">Home</span>
-        </li>
+        <?php foreach ($showMenu as $menu): ?>
+            <li class="menubutton flex items-center space-x-2 text-white p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors" data-menulink="<?= $menu['MenuId'] ?>" >
+                <i class="material-icons"><?= $menu['MenuIcon'] ?></i>
+                <span class="font-semibold menu-item"><?= $menu['MenuTile'] ?></span>
+            </li>
+        <?php endforeach; ?>
         <!-- Add more menu items as needed -->
     </ul>
 </nav>
@@ -42,5 +44,24 @@
                 }
             });
         });
+
+
+        $(document).on('click', '.menubutton', function(e) {
+                var menulink = $(this).closest('.menubutton').data('menulink');
+                
+                $.ajax({
+                    url: '<?= base_url() ?>' + menulink,
+                    type: 'GET',
+                    success: function(response){
+                        $('body').replaceWith(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error saving data:', error);
+                        alert('Failed to get the for ClientID');
+                    }
+                })
+
+            });
+
     });
 </script>
