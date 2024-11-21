@@ -10,6 +10,7 @@ use CodeIgniter\Router\RouteCollection;
 // Home Routes
 
 $routes->get('/', 'HomeController::index');
+$routes->get('home','HomeController::home');
 $routes->post('savecollection', 'HomeController::SaveCollection');
 $routes->get('getclientdatabyclientid', 'HomeController::GetClientDataByClientID');
 

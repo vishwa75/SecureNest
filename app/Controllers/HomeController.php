@@ -52,6 +52,48 @@ class HomeController extends BaseController
             return view('home/homeView', $viewObject);
         }
 
+
+
+        public function home(): string
+        {
+            $serverDetails = new ServerDetailsModel();
+            $ServiceDetails = new ServiceDetailsModel();
+            $ConnectivityDetails = new ConnectivityDetailsModel();
+            $CollectionTable = new CollectionTableModel();
+            $TableDetail = new TableDetailModel();
+            $ShowMenu = new ShowMenuModel();
+
+            $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
+            $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
+            $ServiceDetailsMore = explode(",",$ServiceDetailsTableData['ColumnModeDetails']);
+
+            $ServerDetailsTableDate = $TableDetail->where('TableName','ServerDetails')->first();
+            $ServerDetailsHeader = explode(",",$ServerDetailsTableDate['ColumnHeader']);
+
+            $ConnectivityDetailsData = $TableDetail->where('TableName','ConnectivityDetails')->first();
+            $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
+            
+            $viewObject = [
+
+                'showMenu' => $ShowMenu->findAll(),
+
+                'serverDetailsTableHeader' => $ServerDetailsHeader,
+                'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->findAll(),
+
+                'serviceDetailsTableHeader' => $ServiceDetailsHeader,
+                'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->findAll(),
+                'serviceDetailsTableMore' => $ServiceDetailsMore,
+                'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->findAll(),
+
+                'connectivityDetailsHeader' => $ConnectivityDetailsDataHeader,
+                'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->findAll(),
+
+                'collectionTable' => $CollectionTable->findAll(),
+            ];
+
+            return view('home/tabelAndCollectionCombo', $viewObject);
+        }    
+
     public function SaveCollection(): string
     {
 
@@ -102,6 +144,7 @@ class HomeController extends BaseController
     $ConnectivityDetailsDataHeader = explode(",", $ConnectivityDetailsData['ColumnHeader']);
 
     $viewObject = [
+        'collectionTable' => $CollectionTable->findAll(),
         'serverDetailsTableHeader' => $ServerDetailsHeader,
         'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
         

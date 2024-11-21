@@ -44,13 +44,8 @@
             </div>
         </div>
     </div>
-
-                <div class="flex h-full space-x-2">
-                    <!-- Collection-->
-                    <?= $this->include('home/collectionListView'); ?>
-                    <!-- Tables -->
-                    <?= $this->include('home/tableContentView'); ?>
-                </div>
+            
+    <?= $this->include('home/tabelAndCollectionCombo'); ?>
 
     <script>
         $(document).ready(function() {

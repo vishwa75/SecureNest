@@ -4,3 +4,5 @@
                             <div data-clientid="<?= $collection['ClientID'] ?>" id="<?= $collection['CollectionName'] ?>" class="getDataForCollection py-1 w-4/5 border border-gray-800 rounded-lg text-center font-semibold text-base hover:bg-gray-800 hover:text-white cursor-pointer"><?= $collection['CollectionName'] ?></div> 
                         <?php endforeach; ?>
                     </div>
+
+

@@ -53,7 +53,7 @@
                     url: '<?= base_url() ?>' + menulink,
                     type: 'GET',
                     success: function(response){
-                        $('body').replaceWith(response);
+                        $('#maincontent').replaceWith(response);
                     },
                     error: function(xhr, status, error) {
                         console.error('Error saving data:', error);
