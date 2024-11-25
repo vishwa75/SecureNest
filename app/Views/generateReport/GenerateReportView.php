@@ -5,7 +5,7 @@
         </button>
    <!-- <section id="a4"  > -->
 
-        <div class="flex flex-col items-center justify-center"  id="a4">
+        <div class="flex flex-col items-center space-y-20 justify-center" id="a4">
         <section class="h-[297mm] w-[210mm] overflow-auto  bg-white shadow-lg border border-black">
             <!-- Logo and Title Start -->
             <div class="flex flex-row" id="titleAndLogo">
@@ -66,24 +66,15 @@
             <div class="w-full bg-[#ad2177] h-[25px] text-center text-white border-b border-black">
                 <span>EXPLAIN THE PROBLEM</span>
             </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
+            <div class="w-full h-[100px] text-center text-black border-b border-black">
+                <!-- <input class="w-full explineProblem" type="text" id="fname" name="fname"> -->
             </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
-            <div class="w-full h-[20px] text-center text-black border-b border-black">
-            </div>
+            
             <div class="w-full h-[40px] text-left border-b border-black text-[#ad2177] font-semibold">
-                <label for="">Resolution :</label> 
+                <div class="w-full h-full flex items-center space-x-2">
+                    <label for="">Resolution </label>
+                    <input class="w-full explineProblem" type="text" id="fname" name="fname">
+                </div>
             </div>
             <div class="w-full h-[20px] text-center text-black border-b border-black">
             </div>
@@ -200,9 +191,7 @@
              </div>
              <!-- SUNOIDA ROOT CAUSE ANALYSIS (RCA) REPORT End -->
         </section>
-        <br>
-        <br>
-        <br>
+        
         <section class="h-[297mm] w-[210mm] overflow-auto  bg-white shadow-lg border border-black">
             <div class="w-full h-[30px] bg-[#ad2177] border-b border-black text-center text-white">
                 PREVENTION STRATEGIES 
@@ -311,23 +300,30 @@
 
     $(document).ready(function() {
     $(document).on('click', '#senda4', function(e) {
-        e.preventDefault(); // Prevent any default behavior
+        e.preventDefault(); // Prevent default button behavior
 
-        // Clone content
+        // Clone the content of #a4
         let gdata = $('#a4').clone();
 
-        // Remove the class 'space-y-20' from all elements within gdata
+        // Remove the class 'space-y-20' from all elements within the cloned content
         gdata.find(".space-y-20").removeClass("space-y-20");
 
-        // Check if html2pdf is available
+        // Check if html2pdf library is available
         if (typeof html2pdf !== 'undefined') {
-            // Use html2pdf to generate PDF from the cloned content
-            html2pdf().from(gdata[0]).save('PDDD.pdf');
+            // Create a temporary wrapper to avoid affecting the original layout
+            let tempDiv = $('<div></div>').append(gdata);
+
+            // Generate PDF from the cloned content
+            html2pdf().from(tempDiv[0]).save('PDDD.pdf');
+
+            // Remove the temporary wrapper after generating the PDF
+            tempDiv.remove();
         } else {
             console.error('html2pdf is not loaded or available');
         }
     });
 });
+
 
 
 
