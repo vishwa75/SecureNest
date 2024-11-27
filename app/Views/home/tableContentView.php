@@ -72,9 +72,9 @@
                                 <div class="w-full bg-gray-200 grid grid-cols-2 border-2">
                                     <?php foreach ($serviceDetailsTableMore as $header): ?>
                                         <div class="grid grid-cols-3 items-center justify-center">
-                                            <div class="font-semibold text-start"><?= htmlspecialchars($header) ?></div>
+                                            <div class="ml-5 font-semibold text-start"><?= htmlspecialchars($header) ?></div>
                                             <div class="text-center">:</div>
-                                            <div class="text-start">
+                                            <div class="text-start w-full">
                                                 <input 
                                                     type="text" 
                                                     name="<?= htmlspecialchars($header) ?>[]" 
