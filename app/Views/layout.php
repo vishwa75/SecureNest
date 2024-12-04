@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?=base_url()?>css/output.css?v=1.0">
     <script src="<?=base_url()?>js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
     <style>
         body {
             overflow: hidden;

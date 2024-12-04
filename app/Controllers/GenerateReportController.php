@@ -19,11 +19,11 @@ class GenerateReportController extends BaseController
 {
     public function pagelaod(): string
         {
-            $ShowMenu = new ShowMenuModel();
+           
 
             $viewObject = [
 
-                'showMenu' => $ShowMenu->findAll(),
+                'property_value' => 'AAAAAAAAAAAAAAAAAAAAAA'  
 
             ];
 

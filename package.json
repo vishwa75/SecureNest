@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.4.15"
+  },
+  "dependencies": {
+    "x-data-spreadsheet": "^1.1.9"
   }
 }
