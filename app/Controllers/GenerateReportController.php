@@ -8,6 +8,7 @@ use App\Models\ConnectivityDetailsModel;
 use App\Models\CollectionTableModel;
 use App\Models\ShowMenuModel;
 use App\Models\TableDetailModel;
+use App\Models\SaveSheetTableModel;
 use Exception;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Log\Logger;
@@ -19,106 +20,56 @@ class GenerateReportController extends BaseController
 {
     public function pagelaod(): string
         {
-           
+
+            $getSheetData = new SaveSheetTableModel();
+
+            $getSaveData = $getSheetData->select('sheetdata')->where('id', '4')->first();
 
             $viewObject = [
-
-                'property_value' => 'AAAAAAAAAAAAAAAAAAAAAA'  
-
+                'sheetData' => json_encode($getSaveData)
             ];
-
             return view('generateReport/GenerateReportView', $viewObject);
         }
 
-    
-       
-        
-
-
-        // public function generate(): void
-        // {
-        //     // Fetch the data from GET request
-        //     $data = $this->request->getGet('gdata');
-        
-        //     // Debug: Log the data to verify it's received
-        //     log_message('info', 'Data received for PDF generation: ' . $data);
-        
-        //     // Check if data is empty and provide fallback content
-        //     if (empty($data)) {
-        //         $data = '<h1>No Content Provided</h1><p>Please provide valid HTML data to generate a PDF.</p>';
-        //     } else {
-        //         // Wrap the data in a basic HTML structure if necessary
-        //         $data = '<html><body>' . $data . '</body></html>';
-        //     }
-        
-        //     // Initialize Dompdf
-        //     $dompdf = new Dompdf();
-        //     $dompdf->loadHtml($data);
-        
-        //     // Set paper size and orientation
-        //     $dompdf->setPaper('A4', 'portrait');
-        
-        //     // Enable debug options for troubleshooting
-        //     // $dompdf->set_option('isHtml5ParserEnabled', true);
-        //     // $dompdf->set_option('isRemoteEnabled', true);
-        
-        //     // Render the PDF
-        //     $dompdf->render();
-        
-        //     // Stream the PDF to the browser
-        //     $dompdf->stream('generated_report.pdf', ['Attachment' => 1]);
-        
-        //     // End the script to ensure no further output
-        //     exit(0);
-        // }
-        
-        
-
-        public function generate(): void
-        {
-           // Instantiate the BrowserFactory
-    $browserFactory = new BrowserFactory();
-
-    // Start the browser
-    $browser = $browserFactory->createBrowser([
-        'keepAlive' => true,    // Keep the browser alive for debugging
-    'connectionDelay' => 0, // Minimize connection delays
-    'timeout' => 60000,     // Set timeout to 60 seconds
-    ]);
-
+        public function saveSheet(): ResponseInterface
+{
     try {
-        // Create a new page
-        $page = $browser->createPage();
+        // Get the posted data from the AJAX request as JSON
+        $sheetData = $this->request->getJSON();
 
-        // Navigate to the desired URL
-        $page->navigate(base_url())->waitForNavigation();
+        // Validate the data (optional but recommended)
+        if (empty($sheetData)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'No data received.'
+            ])->setStatusCode(400);
+        }
 
-        // Generate the PDF
-        $pdf = $page->pdf([
-            'printBackground' => true, // Optional: include background in the PDF
-            'format' => 'A4',         // Set the paper size
+        // Save the data to the database
+        $saveSheetData = new SaveSheetTableModel();
+        $saveSheetData->insert([
+            'sheetdata' => json_encode($sheetData) // Ensure the data is stored as a JSON string in the database
         ]);
 
-        // Save the PDF to a file
-        $pdf->saveToFile(FCPATH . 'generated_report.pdf'); // Use the correct path for saving
+        // Send a success response
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Sheet data saved successfully.'
+        ]);
 
-        // Optionally stream the PDF to the browser
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: inline; filename="generated_report.pdf"');
-        readfile(FCPATH . 'generated_report.pdf');
-        exit;
     } catch (\Exception $e) {
-        // Log errors for debugging
-        log_message('error', $e->getMessage());
-        throw $e;
-    } finally {
-        // Ensure the browser is closed to free resources
-        $browser->close();
+        // Handle any errors and send an error response
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to save sheet data.',
+            'error' => $e->getMessage()
+        ])->setStatusCode(500);
     }
-        }
+}
+
+        
+
     
-
-
 
 }
 

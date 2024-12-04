@@ -18,3 +18,5 @@ $routes->get('getclientdatabyclientid', 'HomeController::GetClientDataByClientID
 
 $routes->get('generate', 'GenerateReportController::pagelaod');
 $routes->get('generaterca', 'GenerateReportController::generate');
+$routes->post('savesheet','GenerateReportController::saveSheet');
+
