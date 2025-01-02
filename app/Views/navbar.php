@@ -1,6 +1,6 @@
 <div class="grid grid-cols-3 items-center h-12 bg-gray-200 pt-1 pb-1 w-full">
 <div class="flex justify-start ml-2">
-        <div class="border-2 border-gray-800 bg-gray-800 text-white font-semibold py-1 px-2 mx-2 text-center rounded-lg hover:text-gray-800 hover:bg-gray-200">
+        <div id="addNewRecord" class="border-2 border-gray-800 bg-gray-800 text-white font-semibold py-1 px-2 mx-2 text-center rounded-lg hover:text-gray-800 hover:bg-gray-200">
             New Record +
         </div>
     </div>

@@ -1,4 +1,54 @@
+
+
+
+
+
 <div id="tableContentview" class="w-full h-full overflow-auto p-1 space-y-4">
+
+<div 
+  id="overlayAddEntry" 
+  class="fixed inset-0 z-20 items-center justify-center bg-gray-500 bg-opacity-50 hidden">
+  
+  <div class="w-1/2 bg-gray-100 p-6 rounded-lg shadow-lg">
+    <div class="flex flex-col w-full">
+      <form id="recordForm" class="space-y-6">
+
+        <!-- Dropdown Field -->
+        <div class="mb-4">
+          <label for="catagory" class="block text-sm font-medium text-gray-700 mb-2">
+            Record catagory
+          </label>
+          <select 
+            name="catagory" 
+            id="catagorydropdown" 
+            class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <option value="Server">Server</option>
+            <option value="Service">Service</option><option value="Connectivity">Connectivity</option>
+          </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-around items-center">
+          <button 
+            id="recordclose"
+            type="button"
+            class="w-1/4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200">
+            Close
+          </button>
+          <button 
+            id="addNewRecordRecord"
+            type="submit"
+            class="w-1/4 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-200">
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
     <!-- Server Section -->
     <div>
         <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
@@ -127,4 +177,47 @@
             </table>
         </div>
     </div>
+
+
+    <script>
+
+$(document).on('click', '#addNewRecord', function() {
+                $('#overlayAddEntry').removeClass('hidden');
+                $('#overlayAddEntry').addClass('flex items-center justify-center');
+            });
+
+            $(document).on('click', '#recordclose', function() {
+                $('#overlayAddEntry').removeClass('flex items-center justify-center');
+                $('#overlayAddEntry').addClass('hidden');
+            });
+
+            $(document).on('click', '#addNewRecordRecord', function(e) {
+                e.preventDefault();
+                const serializedData = $('#recordForm').serialize();
+            
+                $.ajax({
+                    url: '<?= base_url('savecollection') ?>',
+                    type: 'POST',
+                    data: serializedData,
+                    success: function(response) {
+                        // Close the overlay and reset the form
+                        $('#overlay').removeClass('flex items-center justify-center').addClass('hidden');
+                        $('#collectionForm')[0].reset();
+
+                        // Update the collection list with the new data
+                        $('#collectionListContainer').replaceWith(response); // Assuming you have a container with this ID for the collection list
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error saving data:', error);
+                        alert('Failed to save data. Please try again.');
+                    }
+                });
+            });
+
+            $(document).on('change', '#catagorydropdown', function() {
+                console.log("Dropdown value changed");
+            });
+
+    </script>
+
 </div>
