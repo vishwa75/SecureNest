@@ -52,6 +52,7 @@
                 $.ajax({
                     url: '<?= base_url() ?>' + menulink,
                     type: 'GET',
+                    data: {menulink: menulink},
                     success: function(response){
                         $('#maincontent').replaceWith(response);
                     },

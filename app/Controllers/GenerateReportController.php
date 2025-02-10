@@ -22,16 +22,22 @@ class GenerateReportController extends BaseController
         {
 
             $getSheetData = new SaveSheetTableModel();
+            $ShowMenu = new ShowMenuModel();
 
-            $getSaveData = $getSheetData->select('sheetdata')->where('id', '4')->first();
+
+            $getSaveData = $getSheetData->select('sheetdata')->where('id', '16')->first();
+
+            $decodedSheetData = json_decode($getSaveData['sheetdata'], true);
 
             $viewObject = [
-                'sheetData' => json_encode($getSaveData)
+                'pageTitle' => $ShowMenu->findAll(),
+                'sheetData' => json_encode($decodedSheetData)
             ];
+
             return view('generateReport/GenerateReportView', $viewObject);
         }
 
-        public function saveSheet(): ResponseInterface
+public function saveSheet(): ResponseInterface
 {
     try {
         // Get the posted data from the AJAX request as JSON
