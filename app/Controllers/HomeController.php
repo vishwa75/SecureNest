@@ -12,6 +12,26 @@ use Exception;
 
 class HomeController extends BaseController
 {
+
+    // private $serverDetails;
+    // private $serviceDetails;
+    // private $connectivityDetails;
+    // private $collectionTable;
+    // private $tableDetail;
+    // private $showMenu;
+
+    // public function __construct()
+    // {
+    //     $this->serverDetails = new ServerDetailsModel();
+    //     $this->serviceDetails = new ServiceDetailsModel();
+    //     $this->connectivityDetails = new ConnectivityDetailsModel();
+    //     $this->collectionTable = new CollectionTableModel();
+    //     $this->tableDetail = new TableDetailModel();
+    //     $this->showMenu = new ShowMenuModel();
+    // }
+
+  
+
     public function index(): string
         {
             $serverDetails = new ServerDetailsModel();
@@ -27,24 +47,32 @@ class HomeController extends BaseController
 
             $ServerDetailsTableDate = $TableDetail->where('TableName','ServerDetails')->first();
             $ServerDetailsHeader = explode(",",$ServerDetailsTableDate['ColumnHeader']);
+            $ServerDetailsMore = explode(",",$ServerDetailsTableDate['ColumnModeDetails']);
 
             $ConnectivityDetailsData = $TableDetail->where('TableName','ConnectivityDetails')->first();
             $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
-            
+            $ConnectivityDetailsMore = explode(",",$ConnectivityDetailsData['ColumnModeDetails']);
+
             $viewObject = [
 
                 'showMenu' => $ShowMenu->findAll(),
 
                 'serverDetailsTableHeader' => $ServerDetailsHeader,
                 'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->findAll(),
+                'serverDetailsTableMore' => $ServerDetailsMore,
+                'serverDetailsTableMoreData' => $serverDetails->select($ServerDetailsTableDate['ColumnModeDetails'])->findAll(),
+
 
                 'serviceDetailsTableHeader' => $ServiceDetailsHeader,
                 'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->findAll(),
                 'serviceDetailsTableMore' => $ServiceDetailsMore,
                 'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->findAll(),
 
+
                 'connectivityDetailsHeader' => $ConnectivityDetailsDataHeader,
                 'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->findAll(),
+                'connectivityDetailsMore' => $ConnectivityDetailsMore,
+                'connectivityDetailsMoreData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnModeDetails'])->findAll(),
 
                 'collectionTable' => $CollectionTable->findAll(),
             ];
@@ -69,9 +97,11 @@ class HomeController extends BaseController
 
             $ServerDetailsTableDate = $TableDetail->where('TableName','ServerDetails')->first();
             $ServerDetailsHeader = explode(",",$ServerDetailsTableDate['ColumnHeader']);
+            $ServerDetailsMore = explode(",",$ServerDetailsTableDate['ColumnModeDetails']);
 
             $ConnectivityDetailsData = $TableDetail->where('TableName','ConnectivityDetails')->first();
             $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
+            $ConnectivityDetailsMore = explode(",",$ConnectivityDetailsData['ColumnModeDetails']);
             
             $viewObject = [
 
@@ -79,15 +109,20 @@ class HomeController extends BaseController
 
                 'serverDetailsTableHeader' => $ServerDetailsHeader,
                 'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->findAll(),
+                'serverDetailsTableMore' => $ServerDetailsMore,
+                'serverDetailsTableMoreData' => $serverDetails->select($ServerDetailsTableDate['ColumnModeDetails'])->findAll(),
+
 
                 'serviceDetailsTableHeader' => $ServiceDetailsHeader,
                 'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->findAll(),
                 'serviceDetailsTableMore' => $ServiceDetailsMore,
                 'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->findAll(),
 
+
                 'connectivityDetailsHeader' => $ConnectivityDetailsDataHeader,
                 'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->findAll(),
-
+                'connectivityDetailsMore' => $ConnectivityDetailsMore,
+                'connectivityDetailsMoreData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnModeDetails'])->findAll(),
                 'collectionTable' => $CollectionTable->findAll(),
             ];
 
@@ -130,31 +165,38 @@ class HomeController extends BaseController
     $CollectionTable = new CollectionTableModel();
     $TableDetail = new TableDetailModel();
     
-    $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
+            $ServiceDetailsTableData = $TableDetail->where('TableName', 'ServiceDetails')->first();
+            $ServiceDetailsHeader = explode(",",$ServiceDetailsTableData['ColumnHeader']);
+            $ServiceDetailsMore = explode(",",$ServiceDetailsTableData['ColumnModeDetails']);
 
-    $ServiceDetailsHeader = explode(",", $ServiceDetailsTableData['ColumnHeader']);
-    $ServiceDetailsMore = explode(",", $ServiceDetailsTableData['ColumnModeDetails']);
+            $ServerDetailsTableDate = $TableDetail->where('TableName','ServerDetails')->first();
+            $ServerDetailsHeader = explode(",",$ServerDetailsTableDate['ColumnHeader']);
+            $ServerDetailsMore = explode(",",$ServerDetailsTableDate['ColumnModeDetails']);
 
-    $ServerDetailsTableDate = $TableDetail->where('TableName', 'ServerDetails')->first();
-
-    $ServerDetailsHeader = explode(",", $ServerDetailsTableDate['ColumnHeader']);
-
-    $ConnectivityDetailsData = $TableDetail->where('TableName', 'ConnectivityDetails')->first();
-
-    $ConnectivityDetailsDataHeader = explode(",", $ConnectivityDetailsData['ColumnHeader']);
+            $ConnectivityDetailsData = $TableDetail->where('TableName','ConnectivityDetails')->first();
+            $ConnectivityDetailsDataHeader = explode(",",$ConnectivityDetailsData['ColumnHeader']);
+            $ConnectivityDetailsMore = explode(",",$ConnectivityDetailsData['ColumnModeDetails']);
 
     $viewObject = [
         'collectionTable' => $CollectionTable->findAll(),
+        
         'serverDetailsTableHeader' => $ServerDetailsHeader,
         'serverDetailsTableHeaderData' => $serverDetails->select($ServerDetailsTableDate['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
-        
+        'serverDetailsTableMore' => $ServerDetailsMore,
+        'serverDetailsTableMoreData' => $serverDetails->select($ServerDetailsTableDate['ColumnModeDetails'])->where('ClientID', $ClientID)->findAll(),
+
+
         'serviceDetailsTableHeader' => $ServiceDetailsHeader,
         'serviceDetailsTableHeaderData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
         'serviceDetailsTableMore' => $ServiceDetailsMore,
         'serviceDetailsTableMoreData' => $ServiceDetails->select($ServiceDetailsTableData['ColumnModeDetails'])->where('ClientID', $ClientID)->findAll(),
-        
+
+                
         'connectivityDetailsHeader' => $ConnectivityDetailsDataHeader,
         'connectivityDetailsHeaderData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnHeader'])->where('ClientID', $ClientID)->findAll(),
+        'connectivityDetailsMore' => $ConnectivityDetailsMore,
+        'connectivityDetailsMoreData' => $ConnectivityDetails->select($ConnectivityDetailsData['ColumnModeDetails'])->where('ClientID', $ClientID)->findAll(),
+
     ];
     
 

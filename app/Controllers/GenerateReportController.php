@@ -25,7 +25,7 @@ class GenerateReportController extends BaseController
             $ShowMenu = new ShowMenuModel();
 
 
-            $getSaveData = $getSheetData->select('sheetdata')->where('id', '16')->first();
+            $getSaveData = $getSheetData->select('sheetdata')->where('id', '3')->first();
 
             $decodedSheetData = json_decode($getSaveData['sheetdata'], true);
 

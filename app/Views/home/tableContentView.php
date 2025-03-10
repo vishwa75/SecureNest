@@ -1,8 +1,3 @@
-
-
-
-
-
 <div id="tableContentview" class="w-full h-full overflow-auto p-1 space-y-4">
 
 <div 
@@ -52,7 +47,7 @@
     <!-- Server Section -->
     <div>
         <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
-            <div class="ml-3">Server</div>
+            <div class="ml-3">Service</div>
             <div class="mr-3">Add +</div>
         </div>
         <div class="overflow-x-auto">
@@ -62,10 +57,11 @@
                         <?php foreach ($serverDetailsTableHeader as $header): ?>
                             <th class="border-b border-gray-300"><?= htmlspecialchars($header) ?></th>
                         <?php endforeach; ?>
+                        <th class="border-b border-gray-300">More</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($serverDetailsTableHeaderData as $data): ?>
+                    <?php foreach ($serverDetailsTableHeaderData as $index => $data): ?>
                         <tr class="bg-white text-center text-sm">
                             <?php foreach ($serverDetailsTableHeader as $header): ?>
                                 <td class="border-b border-gray-300">
@@ -77,6 +73,29 @@
                                     >
                                 </td>
                             <?php endforeach; ?>
+                            <td class="border-b border-gray-300 hover:bg-gray-400">
+                                <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-server-row-<?= $index ?>">read_more</i>
+                            </td>
+                        </tr>
+                        <tr id="toggle-server-row-<?= $index ?>" class="toggle-row bg-white" style="display: none;">
+                            <td colspan="<?= count($serverDetailsTableHeader) + 1 ?>">
+                                <div class="w-full bg-gray-200 grid grid-cols-2 border-2">
+                                    <?php foreach ($serverDetailsTableMore as $header): ?>
+                                        <div class="grid grid-cols-3 items-center justify-center">
+                                            <div class="ml-5 font-semibold text-start"><?= htmlspecialchars($header) ?></div>
+                                            <div class="text-center">:</div>
+                                            <div class="text-start w-full">
+                                                <input 
+                                                    type="text" 
+                                                    name="<?= htmlspecialchars($header) ?>[]" 
+                                                    value="<?= htmlspecialchars($serverDetailsTableMoreData[$index][$header]) ?>" 
+                                                    class="w-full text-sm text-left border border-gray-300 rounded-md p-2"
+                                                >
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -146,7 +165,7 @@
     <!-- Connectivity Section -->
     <div>
         <div class="h-5 w-full flex flex-row justify-between items-center text-center py-2 font-semibold">
-            <div class="ml-3">Connectivity</div>
+            <div class="ml-3">Service</div>
             <div class="mr-3">Add +</div>
         </div>
         <div class="overflow-x-auto">
@@ -156,10 +175,11 @@
                         <?php foreach ($connectivityDetailsHeader as $header): ?>
                             <th class="border-b border-gray-300"><?= htmlspecialchars($header) ?></th>
                         <?php endforeach; ?>
+                        <th class="border-b border-gray-300">More</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($connectivityDetailsHeaderData as $data): ?>
+                    <?php foreach ($connectivityDetailsHeaderData as $index => $data): ?>
                         <tr class="bg-white text-center text-sm">
                             <?php foreach ($connectivityDetailsHeader as $header): ?>
                                 <td class="border-b border-gray-300">
@@ -171,6 +191,29 @@
                                     >
                                 </td>
                             <?php endforeach; ?>
+                            <td class="border-b border-gray-300 hover:bg-gray-400">
+                                <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-connection-row-<?= $index ?>">read_more</i>
+                            </td>
+                        </tr>
+                        <tr id="toggle-connection-row-<?= $index ?>" class="toggle-row bg-white" style="display: none;">
+                            <td colspan="<?= count($connectivityDetailsHeader) + 1 ?>">
+                                <div class="w-full bg-gray-200 grid grid-cols-2 border-2">
+                                    <?php foreach ($connectivityDetailsMore as $header): ?>
+                                        <div class="grid grid-cols-3 items-center justify-center">
+                                            <div class="ml-5 font-semibold text-start"><?= htmlspecialchars($header) ?></div>
+                                            <div class="text-center">:</div>
+                                            <div class="text-start w-full">
+                                                <input 
+                                                    type="text" 
+                                                    name="<?= htmlspecialchars($header) ?>[]" 
+                                                    value="<?= htmlspecialchars($connectivityDetailsMoreData[$index][$header]) ?>" 
+                                                    class="w-full text-sm text-left border border-gray-300 rounded-md p-2"
+                                                >
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
