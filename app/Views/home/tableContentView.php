@@ -64,7 +64,7 @@
                     <?php foreach ($serverDetailsTableHeaderData as $index => $data): ?>
                         <tr class="bg-white text-center text-sm">
                             <?php foreach ($serverDetailsTableHeader as $header): ?>
-                                <td class="border-b border-gray-300">
+                                <td class="border-b border-gray-300" id="server-row-<?= $index ?>">
                                     <input 
                                         type="text" 
                                         name="<?= htmlspecialchars($header) ?>[]" 
@@ -73,8 +73,9 @@
                                     >
                                 </td>
                             <?php endforeach; ?>
-                            <td class="border-b border-gray-300 hover:bg-gray-400">
-                                <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-server-row-<?= $index ?>">read_more</i>
+                            <td class="border-b border-gray-300 flex">
+                                <img src="<?= base_url('images/readmore.svg') ?>" class="hover:bg-gray-400 cursor-pointer moreClick mx-1" data-toggle="toggle-server-row-<?= $index ?>" alt="Read More">
+                                <img src="<?= base_url('images/edit.svg') ?>" class="hover:bg-gray-400 cursor-pointer editClick mx-1" data-edit="edit-server-row-<?= $index ?>" alt="Edit">
                             </td>
                         </tr>
                         <tr id="toggle-server-row-<?= $index ?>" class="toggle-row bg-white" style="display: none;">
@@ -123,7 +124,7 @@
                     <?php foreach ($serviceDetailsTableHeaderData as $index => $data): ?>
                         <tr class="bg-white text-center text-sm">
                             <?php foreach ($serviceDetailsTableHeader as $header): ?>
-                                <td class="border-b border-gray-300">
+                                <td class="border-b border-gray-300" id="service-row-<?= $index ?>">
                                     <input 
                                         type="text" 
                                         name="<?= htmlspecialchars($header) ?>[]" 
@@ -132,8 +133,9 @@
                                     >
                                 </td>
                             <?php endforeach; ?>
-                            <td class="border-b border-gray-300 hover:bg-gray-400">
-                                <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-row-<?= $index ?>">read_more</i>
+                            <td class="border-b border-gray-300 flex">
+                                <img src="<?= base_url('images/readmore.svg') ?>" class="hover:bg-gray-400 cursor-pointer moreClick mx-1" data-toggle="toggle-row-<?= $index ?>" alt="Read More">
+                                <img src="<?= base_url('images/edit.svg') ?>" class="hover:bg-gray-400 cursor-pointer editClick mx-1" data-edit="edit-row-<?= $index ?>" alt="Edit">
                             </td>
                         </tr>
                         <tr id="toggle-row-<?= $index ?>" class="toggle-row bg-white" style="display: none;">
@@ -182,7 +184,7 @@
                     <?php foreach ($connectivityDetailsHeaderData as $index => $data): ?>
                         <tr class="bg-white text-center text-sm">
                             <?php foreach ($connectivityDetailsHeader as $header): ?>
-                                <td class="border-b border-gray-300">
+                                <td class="border-b border-gray-300" id="connection-row-<?= $index ?>">
                                     <input 
                                         type="text" 
                                         name="<?= htmlspecialchars($header) ?>[]" 
@@ -191,8 +193,9 @@
                                     >
                                 </td>
                             <?php endforeach; ?>
-                            <td class="border-b border-gray-300 hover:bg-gray-400">
-                                <i class="material-icons cursor-pointer moreClick mx-1" data-toggle="toggle-connection-row-<?= $index ?>">read_more</i>
+                            <td class="border-b border-gray-300 flex">
+                                <img src="<?= base_url('images/readmore.svg') ?>" class="hover:bg-gray-400 cursor-pointer moreClick mx-1" data-toggle="toggle-connection-row-<?= $index ?>" alt="Read More">
+                                <img src="<?= base_url('images/edit.svg') ?>" class="hover:bg-gray-400 cursor-pointer editClick mx-1" data-edit="edit-connection-row-<?= $index ?>" alt="Edit">
                             </td>
                         </tr>
                         <tr id="toggle-connection-row-<?= $index ?>" class="toggle-row bg-white" style="display: none;">
@@ -260,6 +263,25 @@ $(document).on('click', '#addNewRecord', function() {
             $(document).on('change', '#catagorydropdown', function() {
                 console.log("Dropdown value changed");
             });
+
+
+           
+    $(document).on('click', '.editClick', function() {
+        const editId = $(this).data('edit'); 
+        console.log(editId)
+        let changeEditID = editId.replaceAll('edit','toggle');
+        console.log(changeEditID)
+        const toggleRow = $('#' + changeEditID); 
+        console.log(toggleRow);
+
+        // Toggle the display of the row
+        if (toggleRow.css('display') === 'none') {
+            toggleRow.show(); // Show the row
+        } else {
+            toggleRow.hide(); // Hide the row
+        }
+    });
+
 
     </script>
 
